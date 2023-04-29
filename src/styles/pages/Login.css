@@ -1,0 +1,11 @@
+.loginDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50rem;
+}
+
+.loginButton {
+    margin-top: 1rem;
+}

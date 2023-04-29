@@ -1,0 +1,19 @@
+.logo {
+    display: block;
+    max-width:140px;
+    max-height:50px;
+    width: auto;
+    height: auto;
+}
+
+.navbar-nav {
+    flex-direction: row !important;
+}
+
+.navItem {
+    padding-right: 1rem;
+}
+
+.navItem:hover{
+    cursor: pointer;
+}
