@@ -1,4 +1,4 @@
-.loginDiv {
+.registrationDiv {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,16 +6,8 @@
     height: 50rem;
 }
 
-.loginButton {
+.registerButton {
     margin-top: 1rem;
-}
-
-.greeting {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 20rem;
-    color: white;
 }
 
 .errorText {

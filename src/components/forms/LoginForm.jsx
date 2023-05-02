@@ -10,7 +10,6 @@ export default function LoginForm({setEmail, setPassword}) {
     useEffect(() => {
         function validate(emailInput, passwordInput) {
             if(emailInput !== '' && passwordInput !== '') {
-                console.log("Yo we here")
                 setEmail(emailInput)
                 setPassword(passwordInput)
             }
