@@ -1,7 +1,7 @@
 import {Button, Col, Container, Row} from "reactstrap";
 import "../styles/pages/Home.css"
 import CustomCarousel from "../components/CustomCarousel";
-import {googleLogin} from "../API/calls";
+import {getAllUsers, googleLogin} from "../API/calls";
 import {useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import { GoogleLogin } from '@react-oauth/google';
@@ -9,13 +9,15 @@ import jwt_decode from "jwt-decode";
 
 export default function Home() {
     const navigate = useNavigate();
-    const [cookies, setCookie] = useCookies(['loggedIn', 'userInfo']);
+    const [cookies, setCookie] = useCookies(['loggedIn', 'userInfo', 'allUsers']);
     function responseMessage(googleResponse) {
         const userObject = jwt_decode(googleResponse.credential)
-        googleLogin(userObject).then(response =>{
-            //console.log(response)
+        googleLogin(userObject).then(async response => {
             setCookie('loggedIn', true)
             setCookie('userInfo', {'email': response.userInformation.email, 'role': response.userInformation.role})
+            if(response.userInformation.role === "Admin"){
+                setCookie("allUsers", await getAllUsers())
+            }
         })
         navigate("/LoggedIn")
     }

@@ -1,0 +1,12 @@
+.modalHeader, .modalFooter {
+    background-color: #212529 !important;
+    color: white;
+}
+
+.modalBody {
+    background-color: #414449;
+    color: white;
+}
+.modal {
+    --bs-modal-width: 850px;
+}

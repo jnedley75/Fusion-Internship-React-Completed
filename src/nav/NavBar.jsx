@@ -1,4 +1,10 @@
-import {Nav, Navbar, NavbarBrand, NavItem, NavLink} from "reactstrap";
+import {
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavItem,
+    NavLink
+} from "reactstrap";
 import {useNavigate} from "react-router-dom"
 import FusionLogo from '../assets/Fusion-Logo.png'
 import '../styles/nav/NavBar.css'
@@ -6,7 +12,7 @@ import {useCookies} from "react-cookie";
 
 export default function NavBar() {
     const navigate = useNavigate();
-    const [cookies, setCookie, removeCookie] = useCookies(['loggedIn', 'userInfo']);
+    const [cookies, , removeCookie] = useCookies(['loggedIn', 'userInfo']);
 
     function logout() {
         removeCookie("loggedIn")
@@ -43,9 +49,6 @@ export default function NavBar() {
                         <>
                             <NavItem className="navItem">
                                 <NavLink onClick={()=>navigate("/LoggedIn")}>Dashboard</NavLink>
-                            </NavItem>
-                            <NavItem className="navItem">
-                                <NavLink onClick={()=>navigate("/")}>View Users</NavLink>
                             </NavItem>
                         </>
                     }

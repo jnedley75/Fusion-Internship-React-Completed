@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
 import LoginForm from "../components/forms/LoginForm";
-import {Button} from "reactstrap";
-import {Cookies, useCookies} from "react-cookie";
-import dbLogin from '../API/calls'
+import {Button, Col, Container, Row} from "reactstrap";
+import {useCookies} from "react-cookie";
+import dbLogin, {getAllUsers} from '../API/calls'
 import '../styles/pages/Login.css'
+import ViewUsersModal from "../components/ViewUsersModal";
 
 
 export default function LoggedIn() {
 
-    const [cookies, setCookie] = useCookies(['userInfo', "loggedIn"]);
+    const [cookies, setCookie] = useCookies(['userInfo', "loggedIn", "allUsers"]);
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -27,12 +28,15 @@ export default function LoggedIn() {
 
     async function login() {
         const responseJson = await dbLogin(requestObject)
+        const allUsers = await getAllUsers()
         if(responseJson.loggedIn === true) {
             setCookie("userInfo", responseJson.userInformation)
             setCookie("loggedIn", responseJson.loggedIn)
+            if(responseJson.userInformation.role === "Admin"){
+                setCookie("allUsers", allUsers)
+            }
             setShowError(false)
         } else {
-            console.log("in here")
             setShowError(true)
         }
 
@@ -50,11 +54,24 @@ export default function LoggedIn() {
                 </div>
             :
                 <div className="greeting">
-                    <h2>Welcome back {cookies.userInfo.email}!</h2>
+                    <Container className="loggedInContainer">
+                        <Row>
+                            <Col>
+                                <h2>Welcome back {cookies.userInfo.email}!</h2>
+                            </Col>
+                        </Row>
+                        {cookies.userInfo.role !== "Admin" ?
+                            ""
+                            :
+                            <Row>
+                                <Col>
+                                    <ViewUsersModal />
+                                </Col>
+                            </Row>
+                        }
+                    </Container>
                 </div>
             }
-
-
         </>
     )
 }
